@@ -199,25 +199,13 @@ def receive_wallet(message):
         f"Use /run to start."
     )
 
-# ========== FLASK FAKE SERVER FOR RENDER ==========
-from flask import Flask
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return "Wallet Matcher Bot is running 🚀"
-
 # ========== START BOT ==========
-def run_bot():
-    try:
-        logging.info("Bot polling started")
-        bot.infinity_polling(skip_pending=True, timeout=30)
-    except KeyboardInterrupt:
-        logging.warning("Bot stopped by user")
-    except Exception:
-        logging.critical("BOT CRASHED")
-        logging.critical(traceback.format_exc())
 
-if __name__ == '__main__':
-    threading.Thread(target=run_bot).start()
-    app.run(host="0.0.0.0", port=10000)
+try:
+    logging.info("Bot polling started")
+    bot.infinity_polling(skip_pending=True, timeout=30)
+except KeyboardInterrupt:
+    logging.warning("Bot stopped by user")
+except Exception:
+    logging.critical("BOT CRASHED")
+    logging.critical(traceback.format_exc())
